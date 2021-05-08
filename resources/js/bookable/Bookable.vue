@@ -14,7 +14,7 @@
         <review-list :bookable-id="this.$route.params.id"></review-list>
       </div><!-- /.col-md-8 -->
     <div class="col-md-4 pb-4">
-      <availability :bookable-id="this.$route.params.id"></availability>
+      <availability :bookable-id="this.$route.params.id" ></availability>
     </div><!-- /.col-md-4 -->
   </div>
 </template>

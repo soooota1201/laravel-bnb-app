@@ -2,8 +2,10 @@
   <div>
     <h6 class="text-uppercase text-secondary font-weight-bolder">
       Check Availability
-      <span v-if="noAvailability" class="text-danger">(NOT AVAILABLE)</span>
-      <span v-if="hasAvailability" class="text-success">(AVAILABLE)</span>
+      <transition name="fade">
+        <span v-if="noAvailability" class="text-danger">(NOT AVAILABLE)</span>
+        <span v-if="hasAvailability" class="text-success">(AVAILABLE)</span>
+      </transition>
     </h6>
 
     <!-- フォームを追加 -->
@@ -37,7 +39,10 @@
       </div><!-- /.form-group col-md-6 -->
     </div><!-- /.form-row -->
 
-    <button class="btn btn-secondary btn-block" @click="check" type="submit" :disabled = "loading">Check</button>
+    <button class="btn btn-secondary btn-block" @click="check" type="submit" :disabled = "loading">
+      <span v-if="!loading">Check!</span>
+      <span v-if="loading"><i class="fas fa-circle-notch fa-spin"></i>Checking...</span>
+    </button>
   </div>
 </template>
 
@@ -66,21 +71,20 @@ export default {
       this.$store.dispatch('setLastSearch', {
         from: this.from,
         to: this.to
-      })
+      });
 
-      //idをどう取得するか？親インスタンスから子インスタンスにデータを受け渡す必要がある。今回の場合はbookableインスタンスから受け渡す必要がある。
-      axios.get(`/api/bookables/${this.bookableId}/availability?from=${this.from}&to=${this.to}`)
-      .then(response => {
-        this.status = response.status;
-      })
-      .catch(error => {
+      try {
+        this.status = (await axios.get(`/api/bookables/${this.bookableId}/availability?from=${this.from}&to=${this.to}`)).status;
+        this.$emit("availavility", this.hasAvailability);
+      } catch (err) {
         if(is422(error)) {
           this.errors = error.response.data.errors;
         }
         this.status = error.response.status;
-      })
-      .then(() => this.loading = false);
-    },
+        this.$emit("availavility", this.hasAvailability);
+      }
+      this.loading = falise;
+    }
   },
   computed: {
     hasErrors() {

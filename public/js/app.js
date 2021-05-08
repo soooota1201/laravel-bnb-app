@@ -1916,107 +1916,9 @@ module.exports = {
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/bookable/Availability.vue?vue&type=script&lang=js& ***!
   \*********************************************************************************************************************************************************************/
 /*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _shared_utils_response__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../shared/utils/response */ "./resources/js/shared/utils/response.js");
-/* harmony import */ var _shared_mixins_validationErrors__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./../shared/mixins/validationErrors */ "./resources/js/shared/mixins/validationErrors.js");
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [_shared_mixins_validationErrors__WEBPACK_IMPORTED_MODULE_1__["default"]],
-  props: {
-    bookableId: [String, Number]
-  },
-  data: function data() {
-    // inputのnameで指定している値をdataの返り値に指定
-    return {
-      from: this.$store.state.lastSearch.from,
-      to: this.$store.state.lastSearch.to,
-      loading: false,
-      status: null
-    };
-  },
-  methods: {
-    check: function check() {
-      var _this = this;
-
-      this.loading = true;
-      this.errors = null;
-      this.$store.dispatch('setLastSearch', {
-        from: this.from,
-        to: this.to
-      }); //idをどう取得するか？親インスタンスから子インスタンスにデータを受け渡す必要がある。今回の場合はbookableインスタンスから受け渡す必要がある。
-
-      axios.get("/api/bookables/".concat(this.bookableId, "/availability?from=").concat(this.from, "&to=").concat(this.to)).then(function (response) {
-        _this.status = response.status;
-      })["catch"](function (error) {
-        if (Object(_shared_utils_response__WEBPACK_IMPORTED_MODULE_0__["is422"])(error)) {
-          _this.errors = error.response.data.errors;
-        }
-
-        _this.status = error.response.status;
-      }).then(function () {
-        return _this.loading = false;
-      });
-    }
-  },
-  computed: {
-    hasErrors: function hasErrors() {
-      return 422 == this.status && this.errors != null;
-    },
-    hasAvailability: function hasAvailability() {
-      return 200 == this.status;
-    },
-    noAvailability: function noAvailability() {
-      return 404 == this.status;
-    }
-  }
-});
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /Users/nakaisota/my-learning/laravelbnb/resources/js/bookable/Availability.vue: Unexpected reserved word 'await' (77:23)\n\n\u001b[0m \u001b[90m 75 |\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 76 |\u001b[39m       \u001b[36mtry\u001b[39m {\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 77 |\u001b[39m         \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mstatus \u001b[33m=\u001b[39m (\u001b[36mawait\u001b[39m axios\u001b[33m.\u001b[39m\u001b[36mget\u001b[39m(\u001b[32m`/api/bookables/${this.bookableId}/availability?from=${this.from}&to=${this.to}`\u001b[39m))\u001b[33m.\u001b[39mstatus\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    |\u001b[39m                        \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 78 |\u001b[39m         \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39m$emit(\u001b[32m\"availavility\"\u001b[39m\u001b[33m,\u001b[39m \u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mhasAvailability)\u001b[33m;\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 79 |\u001b[39m       } \u001b[36mcatch\u001b[39m (err) {\u001b[0m\n\u001b[0m \u001b[90m 80 |\u001b[39m         \u001b[36mif\u001b[39m(is422(error)) {\u001b[0m\n    at Parser._raise (/Users/nakaisota/my-learning/laravelbnb/node_modules/@babel/parser/lib/index.js:776:17)\n    at Parser.raiseWithData (/Users/nakaisota/my-learning/laravelbnb/node_modules/@babel/parser/lib/index.js:769:17)\n    at Parser.raise (/Users/nakaisota/my-learning/laravelbnb/node_modules/@babel/parser/lib/index.js:737:17)\n    at Parser.checkReservedWord (/Users/nakaisota/my-learning/laravelbnb/node_modules/@babel/parser/lib/index.js:11486:12)\n    at Parser.parseIdentifierName (/Users/nakaisota/my-learning/laravelbnb/node_modules/@babel/parser/lib/index.js:11448:12)\n    at Parser.parseIdentifier (/Users/nakaisota/my-learning/laravelbnb/node_modules/@babel/parser/lib/index.js:11415:23)\n    at Parser.parseExprAtom (/Users/nakaisota/my-learning/laravelbnb/node_modules/@babel/parser/lib/index.js:10506:27)\n    at Parser.parseExprSubscripts (/Users/nakaisota/my-learning/laravelbnb/node_modules/@babel/parser/lib/index.js:10248:23)\n    at Parser.parseUpdate (/Users/nakaisota/my-learning/laravelbnb/node_modules/@babel/parser/lib/index.js:10228:21)\n    at Parser.parseMaybeUnary (/Users/nakaisota/my-learning/laravelbnb/node_modules/@babel/parser/lib/index.js:10206:23)\n    at Parser.parseExprOps (/Users/nakaisota/my-learning/laravelbnb/node_modules/@babel/parser/lib/index.js:10071:23)\n    at Parser.parseMaybeConditional (/Users/nakaisota/my-learning/laravelbnb/node_modules/@babel/parser/lib/index.js:10045:23)\n    at Parser.parseMaybeAssign (/Users/nakaisota/my-learning/laravelbnb/node_modules/@babel/parser/lib/index.js:10008:21)\n    at allowInAnd (/Users/nakaisota/my-learning/laravelbnb/node_modules/@babel/parser/lib/index.js:9975:39)\n    at Parser.allowInAnd (/Users/nakaisota/my-learning/laravelbnb/node_modules/@babel/parser/lib/index.js:11647:12)\n    at Parser.parseMaybeAssignAllowIn (/Users/nakaisota/my-learning/laravelbnb/node_modules/@babel/parser/lib/index.js:9975:17)\n    at Parser.parseParenAndDistinguishExpression (/Users/nakaisota/my-learning/laravelbnb/node_modules/@babel/parser/lib/index.js:10850:28)\n    at Parser.parseExprAtom (/Users/nakaisota/my-learning/laravelbnb/node_modules/@babel/parser/lib/index.js:10568:21)\n    at Parser.parseExprSubscripts (/Users/nakaisota/my-learning/laravelbnb/node_modules/@babel/parser/lib/index.js:10248:23)\n    at Parser.parseUpdate (/Users/nakaisota/my-learning/laravelbnb/node_modules/@babel/parser/lib/index.js:10228:21)\n    at Parser.parseMaybeUnary (/Users/nakaisota/my-learning/laravelbnb/node_modules/@babel/parser/lib/index.js:10206:23)\n    at Parser.parseExprOps (/Users/nakaisota/my-learning/laravelbnb/node_modules/@babel/parser/lib/index.js:10071:23)\n    at Parser.parseMaybeConditional (/Users/nakaisota/my-learning/laravelbnb/node_modules/@babel/parser/lib/index.js:10045:23)\n    at Parser.parseMaybeAssign (/Users/nakaisota/my-learning/laravelbnb/node_modules/@babel/parser/lib/index.js:10008:21)\n    at Parser.parseMaybeAssign (/Users/nakaisota/my-learning/laravelbnb/node_modules/@babel/parser/lib/index.js:10032:25)\n    at Parser.parseExpressionBase (/Users/nakaisota/my-learning/laravelbnb/node_modules/@babel/parser/lib/index.js:9953:23)\n    at allowInAnd (/Users/nakaisota/my-learning/laravelbnb/node_modules/@babel/parser/lib/index.js:9947:39)\n    at Parser.allowInAnd (/Users/nakaisota/my-learning/laravelbnb/node_modules/@babel/parser/lib/index.js:11641:16)\n    at Parser.parseExpression (/Users/nakaisota/my-learning/laravelbnb/node_modules/@babel/parser/lib/index.js:9947:17)\n    at Parser.parseStatementContent (/Users/nakaisota/my-learning/laravelbnb/node_modules/@babel/parser/lib/index.js:11907:23)\n    at Parser.parseStatement (/Users/nakaisota/my-learning/laravelbnb/node_modules/@babel/parser/lib/index.js:11776:17)\n    at Parser.parseBlockOrModuleBlockBody (/Users/nakaisota/my-learning/laravelbnb/node_modules/@babel/parser/lib/index.js:12358:25)\n    at Parser.parseBlockBody (/Users/nakaisota/my-learning/laravelbnb/node_modules/@babel/parser/lib/index.js:12349:10)\n    at Parser.parseBlock (/Users/nakaisota/my-learning/laravelbnb/node_modules/@babel/parser/lib/index.js:12333:10)\n    at Parser.parseTryStatement (/Users/nakaisota/my-learning/laravelbnb/node_modules/@babel/parser/lib/index.js:12219:23)\n    at Parser.parseStatementContent (/Users/nakaisota/my-learning/laravelbnb/node_modules/@babel/parser/lib/index.js:11833:21)");
 
 /***/ }),
 
@@ -61365,16 +61267,21 @@ var render = function() {
       { staticClass: "text-uppercase text-secondary font-weight-bolder" },
       [
         _vm._v("\n    Check Availability\n    "),
-        _vm.noAvailability
-          ? _c("span", { staticClass: "text-danger" }, [
-              _vm._v("(NOT AVAILABLE)")
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.hasAvailability
-          ? _c("span", { staticClass: "text-success" }, [_vm._v("(AVAILABLE)")])
-          : _vm._e()
-      ]
+        _c("transition", { attrs: { name: "fade" } }, [
+          _vm.noAvailability
+            ? _c("span", { staticClass: "text-danger" }, [
+                _vm._v("(NOT AVAILABLE)")
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.hasAvailability
+            ? _c("span", { staticClass: "text-success" }, [
+                _vm._v("(AVAILABLE)")
+              ])
+            : _vm._e()
+        ])
+      ],
+      1
     ),
     _vm._v(" "),
     _c("div", { staticClass: "form-row" }, [
@@ -61472,7 +61379,16 @@ var render = function() {
         attrs: { type: "submit", disabled: _vm.loading },
         on: { click: _vm.check }
       },
-      [_vm._v("Check")]
+      [
+        !_vm.loading ? _c("span", [_vm._v("Check!")]) : _vm._e(),
+        _vm._v(" "),
+        _vm.loading
+          ? _c("span", [
+              _c("i", { staticClass: "fas fa-circle-notch fa-spin" }),
+              _vm._v("Checking...")
+            ])
+          : _vm._e()
+      ]
     )
   ])
 }
