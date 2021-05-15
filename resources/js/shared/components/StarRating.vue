@@ -15,18 +15,8 @@ export default {
     value: Number
   },
   computed: {
-    // halfStar() {
-    //   return false;
-    // },
-    // fullStars() {
-    //   return 4;
-    // },
-    // emptyStars() {
-    //   return 1;
-    // }
     halfStar() {
       const fraction = Math.round((this.value - Math.floor(this.value)) * 100);
-      // console.log(fraction);
       return fraction > 0 && fraction < 50;
     },
     fullStars() {
@@ -38,15 +28,6 @@ export default {
       // if rating would be 1.9, ceil(1.9) = 2, 5 - 2 = 3, render 3 empty stars
       return 5 - Math.ceil(this.value);
     }
-  },
-  // created() {
-  //   const numbers = [0.9, 4.0, 4.4, 4.5, 4.6, 4.9];
-  //   numbers.forEach(n => {
-  //     console.log(`round for ${n} is ${Math.round(n)}`);
-  //     console.log(`round for ${n} is ${Math.floor(n)}`);
-  //     console.log(`round for ${n} is ${Math.ceil(n)}`);
-  //     console.log('=====================================');
-  //   });
-  // }
+  }
 }
 </script> 

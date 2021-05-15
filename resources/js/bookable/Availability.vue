@@ -64,10 +64,9 @@ export default {
     }
   },
   methods: {
-    check() {
+    async check() {
       this.loading = true;
       this.errors = null;
-
       this.$store.dispatch('setLastSearch', {
         from: this.from,
         to: this.to
@@ -75,15 +74,15 @@ export default {
 
       try {
         this.status = (await axios.get(`/api/bookables/${this.bookableId}/availability?from=${this.from}&to=${this.to}`)).status;
-        this.$emit("availavility", this.hasAvailability);
+        this.$emit("availability", this.hasAvailability);
       } catch (err) {
-        if(is422(error)) {
-          this.errors = error.response.data.errors;
+        if(is422(err)) {
+          this.errors = err.response.data.errors;
         }
-        this.status = error.response.status;
-        this.$emit("availavility", this.hasAvailability);
+        this.status = err.response.status;
+        this.$emit("availability", this.hasAvailability);
       }
-      this.loading = falise;
+      this.loading = false;
     }
   },
   computed: {
