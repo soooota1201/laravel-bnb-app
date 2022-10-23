@@ -23,7 +23,11 @@
         <price-breakdown v-if="price" :price="price" class="mb-4"></price-breakdown>
       </transition>
       <transition name="fade">
-        <button class="btn btn-outline-secondary btn-block" v-if="price">Book Now</button>
+        <button
+        class="btn btn-outline-secondary btn-block" 
+        v-if="price" 
+        @click="addToBasket"
+        >Book Now</button>
       </transition>
     </div><!-- /.col-md-4 -->
   </div>
@@ -35,7 +39,6 @@ import ReviewList from "./ReviewList";
 import PriceBreakdown from "./PriceBreakdown";
 import { mapState } from 'vuex';
 export default {
-  // インポートして、使うコンポーネントを定義する
   components: {
     Availability,
     ReviewList,
@@ -59,7 +62,13 @@ export default {
   },
   computed: 
     mapState({
-      lastSearch: "lastSearch"
+      lastSearch: "lastSearch",
+      inBasketAlready(state) {
+        if(null === this.bookable) {
+          return false;
+        }
+        return state.basket.items.reduce((result, item) => result || item.bookable.id === this.bookable.id, false)
+      }
     })
   ,
   methods: {
@@ -73,6 +82,13 @@ export default {
       } catch {
         this.price = null;
       }
+    },
+    addToBasket() {
+      this.$store.commit("addToBasket", {
+        bookable: this.bookable,
+        price: this.price,
+        dates: this.lastSearch
+      })
     }
   }
 }

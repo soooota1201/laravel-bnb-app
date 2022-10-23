@@ -2114,12 +2114,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  // インポートして、使うコンポーネントを定義する
   components: {
     Availability: _Availability__WEBPACK_IMPORTED_MODULE_1__["default"],
     ReviewList: _ReviewList__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -2142,11 +2145,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     });
   },
   computed: Object(vuex__WEBPACK_IMPORTED_MODULE_4__["mapState"])({
-    lastSearch: "lastSearch"
+    lastSearch: "lastSearch",
+    inBasketAlready: function inBasketAlready(state) {
+      var _this2 = this;
+
+      if (null === this.bookable) {
+        return false;
+      }
+
+      return state.basket.items.reduce(function (result, item) {
+        return result || item.bookable.id === _this2.bookable.id;
+      }, false);
+    }
   }),
   methods: {
     checkPrice: function checkPrice(hasAvailability) {
-      var _this2 = this;
+      var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
@@ -2158,23 +2172,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   break;
                 }
 
-                _this2.price = null;
+                _this3.price = null;
                 return _context.abrupt("return");
 
               case 3:
                 _context.prev = 3;
                 _context.next = 6;
-                return axios.get("/api/bookables/".concat(_this2.bookable.id, "/price?from=").concat(_this2.lastSearch.from, "&to=").concat(_this2.lastSearch.to));
+                return axios.get("/api/bookables/".concat(_this3.bookable.id, "/price?from=").concat(_this3.lastSearch.from, "&to=").concat(_this3.lastSearch.to));
 
               case 6:
-                _this2.price = _context.sent.data.data;
+                _this3.price = _context.sent.data.data;
                 _context.next = 12;
                 break;
 
               case 9:
                 _context.prev = 9;
                 _context.t0 = _context["catch"](3);
-                _this2.price = null;
+                _this3.price = null;
 
               case 12:
               case "end":
@@ -2183,6 +2197,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee, null, [[3, 9]]);
       }))();
+    },
+    addToBasket: function addToBasket() {
+      this.$store.commit("addToBasket", {
+        bookable: this.bookable,
+        price: this.price,
+        dates: this.lastSearch
+      });
     }
   }
 });
@@ -2413,6 +2434,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2420,8 +2445,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       lastSearch: this.$store.state.lastSearch
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
     lastSearchComputed: "lastSearch"
+  })), Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
+    itemsInBasket: "itemsInBasket"
   }))
 });
 
@@ -61696,7 +61723,10 @@ var render = function() {
           _vm.price
             ? _c(
                 "button",
-                { staticClass: "btn btn-outline-secondary btn-block" },
+                {
+                  staticClass: "btn btn-outline-secondary btn-block",
+                  on: { click: _vm.addToBasket }
+                },
                 [_vm._v("Book Now")]
               )
             : _vm._e()
@@ -61981,6 +62011,19 @@ var render = function() {
             attrs: { to: { name: "home" } }
           },
           [_vm._v("LaravelBnb")]
+        ),
+        _vm._v(" "),
+        _c(
+          "router-link",
+          { staticClass: "btn nav-button", attrs: { to: { name: "home" } } },
+          [
+            _vm._v("\n      Basket\n      "),
+            _vm.itemsInBasket
+              ? _c("span", { staticClass: "badge badge-secondary" }, [
+                  _vm._v(_vm._s(_vm.itemsInBasket))
+                ])
+              : _vm._e()
+          ]
         )
       ],
       1
@@ -80044,11 +80087,22 @@ __webpack_require__.r(__webpack_exports__);
     lastSearch: {
       from: null,
       to: null
+    },
+    basket: {
+      items: []
     }
   },
   mutations: {
     setLastSearch: function setLastSearch(state, payload) {
       state.lastSearch = payload;
+    },
+    addToBasket: function addToBasket(state, payload) {
+      state.basket.items.push(payload);
+    },
+    removeBasket: function removeBasket(state, payload) {
+      state.basket.items = state.basket.items.filter(function (item) {
+        return item.bookable.id != payload;
+      });
     }
   },
   actions: {
@@ -80062,6 +80116,11 @@ __webpack_require__.r(__webpack_exports__);
       if (lastSearch) {
         context.commit('setLastSearch', JSON.parse(lastSearch));
       }
+    }
+  },
+  getters: {
+    itemsInBasket: function itemsInBasket(state) {
+      return state.basket.items.length;
     }
   }
 });
